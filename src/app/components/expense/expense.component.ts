@@ -7,6 +7,8 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select'; // Import NzSelectModule
+import { ExpenseService } from '../../services/expense/expense.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -20,12 +22,12 @@ export class ExpenseComponent {
   listofCategory: any[] = [
     'Food', 'Clothes', 'Entertainment', 'Travel', 'Education','Other',
   ];
-submitForm() {
-throw new Error('Method not implemented.');
-}
+
   expenseForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private expenseService: ExpenseService,
+    private message: NzMessageService
+  ) {}
 
   ngOnInit() {
     this.expenseForm = this.fb.group({
@@ -36,4 +38,14 @@ throw new Error('Method not implemented.');
       decription: [null, Validators.required], 
     });
   }
+
+  submitForm() {
+    this.expenseService.postExpense(this.expenseForm.value).subscribe(
+      (res) => {
+      this.message.success('Expense saved successfully', { nzDuration: 5000 });
+    },
+      (err) => {
+        this.message.error('Error in saving expense', { nzDuration: 5000 });
+      });
+    }
 }
