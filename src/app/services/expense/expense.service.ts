@@ -14,4 +14,11 @@ export class ExpenseService {
   postExpense(expenseDTO: any): Observable<any> {
     return this.http.post(BASIC_URL + 'api/expense', expenseDTO);
   }
+
+  getAllExpense(): Observable<any> {
+    return this.http.get(BASIC_URL + 'api/expense/all');
+  }
+  deleteExpense(id:number):Observable<any>{
+     return this.http.delete(BASIC_URL+`api/expense/${id}` )
+  }
 }

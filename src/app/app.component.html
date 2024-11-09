@@ -1,8 +1,8 @@
-<nz-layout>
+<nz-layout class="layout">
   <nz-sider>
     <div class="logo">
       <img src="https://ui-avatars.com/api/?name=John+Doe&size=15" alt="avatar" class="avatar">
-      <div class="usr-info">
+      <div class="user-info">
         <strong>Root</strong>
       </div>
     </div>
@@ -21,11 +21,13 @@
       </li>
     </ul>
   </nz-sider>
-  <nz-layout>
+  <nz-layout class="right-layout">
+    <nz-header></nz-header>
     <nz-content>
       <div class="inner-content">
         <router-outlet></router-outlet>
       </div>
     </nz-content>
-   </nz-layout> 
+    <nz-footer>Footer content here</nz-footer>
+  </nz-layout>
 </nz-layout>
