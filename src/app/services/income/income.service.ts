@@ -17,4 +17,15 @@ export class IncomeService {
   getAllIncome(): Observable<any> {
     return this.http.get(BASIC_URL + 'api/income/all');
   }
+
+  deleteIncome(id:number):Observable<any>{
+    return this.http.delete(BASIC_URL+`api/income/${id}` )
+ }
+ getIncomeById(id:number):Observable<any>{
+   return this.http.get(BASIC_URL+`api/income/${id}`)
+ }
+
+ updateIncome(id:number,incomeDTO:any):Observable<any>{
+   return this.http.put(BASIC_URL+`api/income/${id}`,incomeDTO)
+ }
 }

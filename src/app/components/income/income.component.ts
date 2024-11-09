@@ -19,12 +19,7 @@ import { IncomeService } from '../../services/income/income.service';
   styleUrl: './income.component.scss'
 })
 export class IncomeComponent {
-deleteIncome(arg0: any) {
-throw new Error('Method not implemented.');
-}
-updateIncome(arg0: any) {
-throw new Error('Method not implemented.');
-}
+
 incomes: any[] = []; // Ensure expenses is an array
 
 incomeForm!: FormGroup;
@@ -70,5 +65,23 @@ getAllIncome() {
     } 
   );
   }
+
+
+  updateIncome(id: number) {
+    this.router.navigateByUrl(`/income/${id}/edit`);
+   }
+ 
+ deleteIncome(id: number) {
+   this.incomeService.deleteIncome(id).subscribe(
+     (res) => {
+       this.message.success('Expense deleted successfully', { nzDuration: 5000 });
+       this.getAllIncome(); // Refresh the expenses list
+     },
+     (err) => {
+       this.message.error('Error in deleting expense', { nzDuration: 5000 });
+     }
+   );
+ }
+ 
 
 }
