@@ -19,11 +19,15 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 export class DashboardComponent {
 
   stats:any;
+  expenses:any;
+  incomes:any;
+
 gridStyle={ width:'25%',
   textAlign: 'center',
  }
      constructor(private statsService: StatsService) { 
       this.getStats();
+      this.getchartData();
      }
 
      getStats() {
@@ -35,6 +39,20 @@ gridStyle={ width:'25%',
          (error) => {
            console.log(error);
          }
+       );
+     }
+     getchartData() {
+       this.statsService.getchart().subscribe(
+          res=> {
+            if(res.expensesList != null && res.incomesList != null) {
+              this.expenses = res.expensesList;
+              this.incomes = res.incomesList;
+              console.log(res);
+            }
+          },
+          (error) => {
+            
+          }
        );
      }
 }
