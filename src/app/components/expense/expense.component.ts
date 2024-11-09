@@ -12,6 +12,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { ExpenseService } from '../../services/expense/expense.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzIconModule } from 'ng-zorro-antd/icon'; 
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-expense',
@@ -21,12 +23,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
   styleUrls: ['./expense.component.scss']
 })
 export class ExpenseComponent implements OnInit {
-onDelete(_t81: any) {
-throw new Error('Method not implemented.');
-}
-onEdit(_t81: any) {
-throw new Error('Method not implemented.');
-}
+
+
   listofCategory: string[] = [
     'Food', 'Clothes', 'Entertainment', 'Travel', 'Education', 'Other'
   ];
@@ -37,7 +35,8 @@ throw new Error('Method not implemented.');
   constructor(
     private fb: FormBuilder,
     private expenseService: ExpenseService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -78,4 +77,23 @@ throw new Error('Method not implemented.');
       }
     );
   }
+
+  
+
+  updateExpense(id: number) {
+   this.router.navigateByUrl(`/expense/${id}/edit`);
+  }
+
+deleteExpense(id: number) {
+  this.expenseService.deleteExpense(id).subscribe(
+    (res) => {
+      this.message.success('Expense deleted successfully', { nzDuration: 5000 });
+      this.getAllExpenses(); // Refresh the expenses list
+    },
+    (err) => {
+      this.message.error('Error in deleting expense', { nzDuration: 5000 });
+    }
+  );
+}
+
 }

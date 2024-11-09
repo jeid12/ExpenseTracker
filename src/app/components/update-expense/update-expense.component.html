@@ -1,9 +1,9 @@
-<!-- expense.component.html -->
+
 <div class="expense-form-container">
     <div nz-row>
       <!-- Expense Form Column -->
       <div nz-col nzFlex="2">
-        <nz-card nzType="inner" style="margin-top: 16px;" nzTitle="Post New Expense">
+        <nz-card nzType="inner" style="margin-top: 16px;" nzTitle="Update Expense">
           <form nz-form [formGroup]="expenseForm" (ngSubmit)="submitForm()" class="custom-form">
             <nz-form-item>
               <nz-form-control nzErrorTip="Please input your title!">
@@ -38,33 +38,14 @@
             </nz-form-item>
   
             <button nz-button nzType="primary" style="width: 100%;" [disabled]="expenseForm.invalid" class="w-100">
-              Post Expense
+              Update Expense
             </button>
           </form>
         </nz-card>
       </div>
   
-      <!-- Past Expenses Column -->
-      <div nz-col nzFlex="3" style="margin-left: 20px;">
-        <nz-card nzType="inner" style="margin-top: 16px;" nzTitle="Past Expenses">
-          <!-- Iterate over expenses and display each one -->
-          <div *ngFor="let expense of expenses" nz-row style="border-bottom: 1px solid #f0f0f0; padding: 8px 0;">
-            <div nz-col nzSpan="18">
-              <div>
-                <strong>{{ expense.title }}</strong>
-              </div>
-              <div>Amount: {{ expense.amount | currency }}</div>
-              <div>Date: {{ expense.date | date }}</div>
-              <div>Category: {{ expense.category }}</div>
-            </div>
-            <div nz-col nzSpan="6" style="display: flex; gap: 8px; justify-content: flex-end; align-items: center;">
-              <!-- Edit and Delete Buttons -->
-              <button nz-button nzType="default" nzShape="circle" nz-icon nzType="edit" style="color: blue; outline: none;" nzTheme="outline" (click)="updateExpense(expense.id)"></button>
-              <button nz-button nzType="default" nzShape="circle" nz-icon nzType="delete"  style="color: red;" nzTheme="outline" (click)="deleteExpense(expense.id)"></button>
-            </div>
-          </div>
-        </nz-card>
-      </div>
+     
+      
     </div>
   </div>
   
