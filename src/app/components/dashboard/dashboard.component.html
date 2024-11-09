@@ -12,7 +12,9 @@
     </div>
     <div nz-row style="margin-top: 20px;">
         <div nz-col nzFlex="1 1 200px">
-            <nz-card nzType="inner"  nzTitle="Income Chart"></nz-card>
+            <nz-card nzType="inner"  nzTitle="Income Chart">
+                <canvas #incomeLineChartRef></canvas>
+            </nz-card>
         </div>
         <div nz-col nzFlex="0 1 200px" style="margin-left: 15px;">
             <nz-card nzType="inner" nzTitle="Recent History">
@@ -43,7 +45,9 @@
     </div>
     <div nz-row style="margin-top: 20px;">
         <div nz-col nzFlex="1 1 200px">
-            <nz-card nzType="inner"  nzTitle="Expense Chart"></nz-card>
+            <nz-card nzType="inner"  nzTitle="Expense Chart">
+                <canvas #expenseLineChartRef></canvas>
+            </nz-card>
         </div>
     </div>        
 </div>
