@@ -1,0 +1,113 @@
+<div class="user-report">
+  <div class="header">
+    <h1>Personal Financial Report</h1>
+    <p>Generate detailed reports for your income and expenses</p>
+  </div>
+
+  <div class="report-form">
+    <h2>Report Period</h2>
+    <div class="date-inputs">
+      <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input
+          type="date"
+          id="startDate"
+          [(ngModel)]="startDate"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="endDate">End Date</label>
+        <input
+          type="date"
+          id="endDate"
+          [(ngModel)]="endDate"
+          required
+        />
+      </div>
+      <button class="btn-generate" (click)="generateReport()" [disabled]="loading">
+        {{ loading ? 'Generating...' : '📊 Generate Report' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="error" *ngIf="error">{{ error }}</div>
+  <div class="loading" *ngIf="loading">Generating your report...</div>
+
+  <div class="report-content" *ngIf="report && !loading">
+    <!-- Summary Cards -->
+    <div class="summary-section">
+      <h2>Financial Summary</h2>
+      <div class="summary-cards">
+        <div class="summary-card income">
+          <div class="card-icon">💰</div>
+          <div class="card-info">
+            <div class="card-label">Total Income</div>
+            <div class="card-value">${{ report.totalIncome | number:'1.2-2' }}</div>
+            <div class="card-detail">{{ report.incomeCount }} transactions</div>
+            <div class="card-average">Avg: ${{ report.averageIncome | number:'1.2-2' }}</div>
+          </div>
+        </div>
+
+        <div class="summary-card expense">
+          <div class="card-icon">💸</div>
+          <div class="card-info">
+            <div class="card-label">Total Expense</div>
+            <div class="card-value">${{ report.totalExpense | number:'1.2-2' }}</div>
+            <div class="card-detail">{{ report.expenseCount }} transactions</div>
+            <div class="card-average">Avg: ${{ report.averageExpense | number:'1.2-2' }}</div>
+          </div>
+        </div>
+
+        <div class="summary-card balance" [class.negative]="report.balance < 0">
+          <div class="card-icon">{{ report.balance >= 0 ? '✅' : '⚠️' }}</div>
+          <div class="card-info">
+            <div class="card-label">Net Balance</div>
+            <div class="card-value">${{ report.balance | number:'1.2-2' }}</div>
+            <div class="card-detail">{{ report.balance >= 0 ? 'Positive' : 'Negative' }} balance</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Income by Category -->
+    <div class="category-section" *ngIf="getObjectKeys(report.incomeByCategory).length > 0">
+      <h2>Income by Category</h2>
+      <div class="category-grid">
+        <div class="category-card" *ngFor="let category of getObjectKeys(report.incomeByCategory)">
+          <div class="category-name">{{ category }}</div>
+          <div class="category-amount">${{ report.incomeByCategory[category] | number:'1.2-2' }}</div>
+          <div class="category-percentage">
+            {{ ((report.incomeByCategory[category] / report.totalIncome) * 100) | number:'1.1-1' }}%
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expense by Category -->
+    <div class="category-section" *ngIf="getObjectKeys(report.expenseByCategory).length > 0">
+      <h2>Expense by Category</h2>
+      <div class="category-grid">
+        <div class="category-card" *ngFor="let category of getObjectKeys(report.expenseByCategory)">
+          <div class="category-name">{{ category }}</div>
+          <div class="category-amount">${{ report.expenseByCategory[category] | number:'1.2-2' }}</div>
+          <div class="category-percentage">
+            {{ ((report.expenseByCategory[category] / report.totalExpense) * 100) | number:'1.1-1' }}%
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Report Period Info -->
+    <div class="report-footer">
+      <p><strong>Report Period:</strong> {{ report.reportPeriod }}</p>
+      <p><strong>Generated:</strong> {{ currentDate | date:'medium' }}</p>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="!report && !loading && !error">
+    <div class="empty-icon">📊</div>
+    <h3>No Report Generated</h3>
+    <p>Select a date range and click "Generate Report" to view your financial summary</p>
+  </div>
+</div>

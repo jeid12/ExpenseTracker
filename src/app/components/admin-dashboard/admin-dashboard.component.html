@@ -1,0 +1,128 @@
+<div class="admin-dashboard">
+  <div class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <p>System Overview and Management</p>
+  </div>
+
+  <div class="loading" *ngIf="loading">Loading statistics...</div>
+  <div class="error" *ngIf="error">{{ error }}</div>
+
+  <div class="stats-grid" *ngIf="stats && !loading">
+    <!-- User Statistics -->
+    <div class="stats-section">
+      <h2>User Statistics</h2>
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-icon users">👥</div>
+          <div class="stat-info">
+            <div class="stat-value">{{ stats.totalUsers }}</div>
+            <div class="stat-label">Total Users</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon active">✅</div>
+          <div class="stat-info">
+            <div class="stat-value">{{ stats.activeUsers }}</div>
+            <div class="stat-label">Active Users</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon inactive">⏸️</div>
+          <div class="stat-info">
+            <div class="stat-value">{{ stats.inactiveUsers }}</div>
+            <div class="stat-label">Inactive Users</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Financial Statistics -->
+    <div class="stats-section">
+      <h2>Financial Overview</h2>
+      <div class="stats-cards">
+        <div class="stat-card income">
+          <div class="stat-icon">💰</div>
+          <div class="stat-info">
+            <div class="stat-value">${{ stats.totalSystemIncome | number:'1.2-2' }}</div>
+            <div class="stat-label">Total Income</div>
+          </div>
+        </div>
+        <div class="stat-card expense">
+          <div class="stat-icon">💸</div>
+          <div class="stat-info">
+            <div class="stat-value">${{ stats.totalSystemExpense | number:'1.2-2' }}</div>
+            <div class="stat-label">Total Expense</div>
+          </div>
+        </div>
+        <div class="stat-card balance">
+          <div class="stat-icon">💵</div>
+          <div class="stat-info">
+            <div class="stat-value">${{ stats.systemBalance | number:'1.2-2' }}</div>
+            <div class="stat-label">System Balance</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Record Statistics -->
+    <div class="stats-section">
+      <h2>Record Statistics</h2>
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-icon">📝</div>
+          <div class="stat-info">
+            <div class="stat-value">{{ stats.totalExpenseRecords }}</div>
+            <div class="stat-label">Total Expenses</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-info">
+            <div class="stat-value">{{ stats.totalIncomeRecords }}</div>
+            <div class="stat-label">Total Incomes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Statistics -->
+    <div class="stats-section">
+      <h2>Category Statistics</h2>
+      <div class="stats-cards">
+        <div class="stat-card">
+          <div class="stat-icon">🏷️</div>
+          <div class="stat-info">
+            <div class="stat-value">{{ stats.totalCategories }}</div>
+            <div class="stat-label">Total Categories</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">✨</div>
+          <div class="stat-info">
+            <div class="stat-value">{{ stats.activeCategories }}</div>
+            <div class="stat-label">Active Categories</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <h2>Quick Actions</h2>
+    <div class="action-buttons">
+      <button class="action-btn" routerLink="/admin/users">
+        <span class="btn-icon">👥</span>
+        Manage Users
+      </button>
+      <button class="action-btn" routerLink="/admin/categories">
+        <span class="btn-icon">🏷️</span>
+        Manage Categories
+      </button>
+      <button class="action-btn" routerLink="/admin/reports">
+        <span class="btn-icon">📊</span>
+        View Reports
+      </button>
+    </div>
+  </div>
+</div>

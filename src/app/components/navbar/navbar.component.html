@@ -1,0 +1,31 @@
+<nav class="navbar" *ngIf="authService.isAuthenticated">
+  <div class="navbar-container">
+    <div class="navbar-brand">
+      <a routerLink="/dashboard">Expense Tracker</a>
+    </div>
+
+    <div class="navbar-menu">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/expense" routerLinkActive="active">Expenses</a>
+      <a routerLink="/income" routerLinkActive="active">Income</a>
+      <a routerLink="/reports" routerLinkActive="active">Reports</a>
+      
+      <!-- Admin Menu -->
+      <div class="dropdown" *ngIf="authService.isAdmin">
+        <button class="dropdown-toggle">Admin ▾</button>
+        <div class="dropdown-menu">
+          <a routerLink="/admin/dashboard" routerLinkActive="active">Admin Dashboard</a>
+          <a routerLink="/admin/categories" routerLinkActive="active">Categories</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-user">
+      <div class="user-info">
+        <span class="user-name">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</span>
+        <span class="user-role" [class.admin]="currentUser?.role === 'ADMIN'">{{ currentUser?.role }}</span>
+      </div>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</nav>
